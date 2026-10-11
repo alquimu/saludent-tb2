@@ -12,69 +12,23 @@
     </div>
 
     <div class="row g-4">
-
-      <div class="col-12 col-sm-6 col-lg-3">
-        <div class="tarjeta">
-          <div class="foto">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_X3-JmfvQnqX86faPqdUlRtJDbrYl_43LQkMDgWUBjQ&s=10" alt="Dra. Lucía Ramírez" />
-            <span class="badge-anios">
-              <i class="bi bi-award-fill me-1"></i> 12 años
-            </span>
+        @for (o of odontologos(); track o.idOdontologo) {
+          <div class="col-12 col-sm-6 col-lg-3">
+            <div class="tarjeta">
+              <div class="foto">
+                <img src="{{ o.foto }}" alt="{{ o.nombre }}" />
+                <span class="badge-anios">
+                  <i class="bi bi-award-fill me-1"></i> {{ o.anios }} años
+                </span>
+              </div>
+              <div class="datos">
+                <h2 class="nombre">{{ o.nombre }}</h2>
+                <p class="especialidad">{{ o.especialidad }}</p>
+                <p class="registro">{{ o.registro }}</p>
+              </div>
+            </div>
           </div>
-          <div class="datos">
-            <h2 class="nombre">Dra. Lucía Ramírez</h2>
-            <p class="especialidad">Ortodoncia y Ortopedia Maxilar</p>
-            <p class="registro">COP 28451 · Universidad Peruana de Ciencias Aplicadas</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-sm-6 col-lg-3">
-        <div class="tarjeta">
-          <div class="foto">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5MqQ5r6lZrz1Awz9sI4AdpBd2RFiTNk76JdwnCazccA&s=10" alt="Dr. Andrés Salgado" />
-            <span class="badge-anios">
-              <i class="bi bi-award-fill me-1"></i> 15 años
-            </span>
-          </div>
-          <div class="datos">
-            <h2 class="nombre">Dr. Andrés Salgado</h2>
-            <p class="especialidad">Implantología y Cirugía Oral</p>
-            <p class="registro">COP 31207 · Máster en Implantología, Barcelona</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-sm-6 col-lg-3">
-        <div class="tarjeta">
-          <div class="foto">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpT2RZokc1omaBNpBnFSiZW6c1IclRINiZQ9uaAnosCA&s=10" alt="Dra. Camila Torres" />
-            <span class="badge-anios">
-              <i class="bi bi-award-fill me-1"></i> 8 años
-            </span>
-          </div>
-          <div class="datos">
-            <h2 class="nombre">Dra. Camila Torres</h2>
-            <p class="especialidad">Estética Dental y Rehabilitación</p>
-            <p class="registro">COP 35980 · Diplomado en Carillas Cerámicas</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-sm-6 col-lg-3">
-        <div class="tarjeta">
-          <div class="foto">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTF8MtvIognhqYh0KVao4wsR9-odS5oud-Pd3eN1s7XSA&s=10" alt="Dr. Martín Quispe" />
-            <span class="badge-anios">
-              <i class="bi bi-award-fill me-1"></i> 10 años
-            </span>
-          </div>
-          <div class="datos">
-            <h2 class="nombre">Dr. Martín Quispe</h2>
-            <p class="especialidad">Odontopediatría</p>
-            <p class="registro">COP 39112 · Especialista en manejo de conducta infantil</p>
-          </div>
-        </div>
+        }
       </div>
 
     </div>

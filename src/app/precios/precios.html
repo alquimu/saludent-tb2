@@ -23,7 +23,7 @@
           </tr>
         </thead>
         <tbody>
-          @for (tratamiento of tratamientos; track tratamiento.nombre) {
+          @for (tratamiento of tratamientos(); track tratamiento.idTratamiento) {
             <tr [class.fila-promo]="tratamiento.promo > 0">
               <td class="fw-semibold">
                 {{ tratamiento.nombre }}
@@ -33,7 +33,7 @@
                   </span>
                 }
               </td>
-              <td>{{ tratamiento.duracion }}</td>
+              <td>{{ tratamiento.duracion }} min</td>
               <td class="text-end text-muted">
                 @if (tratamiento.precioRegular > 0) {
                   <del>S/ {{ tratamiento.precioRegular }}</del>
