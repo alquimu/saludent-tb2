@@ -6,21 +6,6 @@
   USE DBSALUDENT
   GO
 
-  -- ---------- 1. TABLAS ----------
-  CREATE TABLE TM_TRATAMIENTO
-  (
-          IDTRATAMIENTO   INT PRIMARY KEY IDENTITY(1,1),
-          NOMBRE          VARCHAR(128) NOT NULL,
-          DESCRIPCION     VARCHAR(512),
-          ICONO           VARCHAR(64),         -- clase de Bootstrap Icons, ej. bi-stars
-          DURACION        INT,                 -- minutos
-          PRECIOREGULAR   DECIMAL(10,2),       -- 0 = sin promoción
-          PRECIOACTUAL    DECIMAL(10,2) NOT NULL,
-          ACTIVO          BIT DEFAULT 1,
-          FECHACREA       DATETIME DEFAULT GETDATE()
-  ) 
-  GO
-
    -- ---------- 1. TABLAS ----------
   CREATE TABLE TM_TRATAMIENTO
   (
@@ -138,8 +123,7 @@
   'bi-grid-3x3-gap', 60, 0, 2500),
   ('Blanqueamiento dental', 'Aclaramos varios tonos el color de tus dientes de forma segura y sin sensibilidad.', 'bi-stars',
   90, 450, 349),
-  ('Implantes dentales', 'Reemplazamos piezas perdidas con implantes de titanio que se ven y funcionan como dientes 
-  naturales.', 'bi-bullseye', 120, 0, 3200),
+  ('Implantes dentales', 'Reemplazamos piezas perdidas con implantes de titanio que se ven y funcionan como dientes naturales.', 'bi-bullseye', 120, 0, 3200),
   ('Endodoncia', 'Tratamos el nervio del diente para salvarlo y eliminar el dolor sin necesidad de extraerlo.',
   'bi-activity', 75, 0, 380),
   ('Odontopediatría', 'Atención especial para los más pequeños en un ambiente cómodo y sin miedo.', 'bi-emoji-smile', 40,
