@@ -115,6 +115,7 @@
           @HORA TIME
   )
   AS
+            SET NOCOUNT ON
           IF EXISTS (SELECT 1 FROM TM_CITA
                      WHERE IDODONTOLOGO = @IDODONTOLOGO AND FECHA = @FECHA AND HORA = @HORA)
           BEGIN      
@@ -167,4 +168,3 @@
   -- EXEC usp_Listar_Horarios_Disponibles @IDODONTOLOGO=1, @FECHA='2026-10-20'   -- ya no sale 10:00
   -- EXEC usp_Insertar_Cita 1, 1, 'Otro', 'x@mail.com', '999', '2026-10-20', '10:00'  -- devuelve 0
 
-  
