@@ -152,3 +152,111 @@
   -- EXEC usp_Listar_Horarios_Disponibles @IDODONTOLOGO=1, @FECHA='2026-10-20'   -- ya no sale 10:00
   -- EXEC usp_Insertar_Cita 1, 1, 'Otro', 'x@mail.com', '999', '2026-10-20', '10:00'  -- devuelve 0
 
+-- ---------- 5. PANEL DE LA CLÍNICA (agregado) ----------
+  -- Lista las citas; los filtros son opcionales (NULL = todos)
+  CREATE PROC usp_Listar_Citas
+  (
+          @IDODONTOLOGO INT = NULL,
+          @FECHA DATE = NULL
+  )
+  AS
+          SELECT C.IDCITA,
+                 CONVERT(VARCHAR(10), C.FECHA, 23) AS FECHA,   -- '2026-10-20'
+                 CONVERT(VARCHAR(5),  C.HORA, 108) AS HORA,    -- '10:00'
+                 O.NOMBRE AS ODONTOLOGO,
+                 T.NOMBRE AS TRATAMIENTO,
+                 C.PACIENTE, C.EMAIL, C.TELEFONO, C.ESTADO
+          FROM   TM_CITA C
+          INNER JOIN TM_ODONTOLOGO  O ON O.IDODONTOLOGO  = C.IDODONTOLOGO
+          INNER JOIN TM_TRATAMIENTO T ON T.IDTRATAMIENTO = C.IDTRATAMIENTO
+          WHERE (@IDODONTOLOGO IS NULL OR C.IDODONTOLOGO = @IDODONTOLOGO)
+            AND (@FECHA IS NULL OR C.FECHA = @FECHA)
+          ORDER BY C.FECHA, C.HORA 
+  GO
+ 
+  -- ---------- 6. ACCESO DEL PERSONAL Y CONSULTA DEL PACIENTE (agregado) ----------
+  CREATE TABLE TM_USUARIO
+  (
+          IDUSUARIO           INT PRIMARY KEY IDENTITY(1,1),
+          LOGINUSUARIO        VARCHAR(64) NOT NULL UNIQUE,
+          DOCUMENTOIDENTIDAD  VARCHAR(16) NOT NULL,      -- el DNI hace de clave (acceso ligero)
+          NOMBRES             VARCHAR(128),
+          ACTIVO              BIT DEFAULT 1,
+          FECHACREA           DATETIME DEFAULT GETDATE()
+  )
+  GO
+ 
+  INSERT INTO TM_USUARIO (LOGINUSUARIO, DOCUMENTOIDENTIDAD, NOMBRES) VALUES
+  ('recepcion', '12345678', 'Recepción Saludent')
+  GO
+
+   -- Devuelve el usuario si usuario + DNI coinciden; si no, no devuelve filas
+  CREATE PROC usp_Login_Usuario
+  (
+          @LOGINUSUARIO VARCHAR(64),
+          @DOCUMENTOIDENTIDAD VARCHAR(16)
+  )
+  AS
+          SELECT IDUSUARIO, LOGINUSUARIO, NOMBRES
+          FROM   TM_USUARIO
+          WHERE  LOGINUSUARIO = @LOGINUSUARIO
+            AND  DOCUMENTOIDENTIDAD = @DOCUMENTOIDENTIDAD
+            AND  ACTIVO = 1
+  GO        
+
+  -- Citas de un paciente: deben coincidir correo Y celular (así nadie ve citas ajenas solo con un correo)
+  CREATE PROC usp_Listar_Citas_Paciente
+  (
+          @EMAIL VARCHAR(128),
+          @TELEFONO VARCHAR(16)
+  )
+  AS
+          SELECT C.IDCITA,
+                 CONVERT(VARCHAR(10), C.FECHA, 23) AS FECHA,
+                 CONVERT(VARCHAR(5),  C.HORA, 108) AS HORA,
+                 O.NOMBRE AS ODONTOLOGO,
+                 T.NOMBRE AS TRATAMIENTO,
+                 C.PACIENTE, C.ESTADO
+          FROM   TM_CITA C
+          INNER JOIN TM_ODONTOLOGO  O ON O.IDODONTOLOGO  = C.IDODONTOLOGO
+          INNER JOIN TM_TRATAMIENTO T ON T.IDTRATAMIENTO = C.IDTRATAMIENTO
+          WHERE  C.EMAIL = @EMAIL
+            AND  C.TELEFONO = @TELEFONO
+          ORDER BY C.FECHA, C.HORA
+  GO
+
+   -- Devuelve el usuario si usuario + DNI coinciden; si no, no devuelve filas
+  CREATE PROC usp_Login_Usuario
+  (
+          @LOGINUSUARIO VARCHAR(64),
+          @DOCUMENTOIDENTIDAD VARCHAR(16)
+  )
+  AS
+          SELECT IDUSUARIO, LOGINUSUARIO, NOMBRES
+          FROM   TM_USUARIO
+          WHERE  LOGINUSUARIO = @LOGINUSUARIO
+            AND  DOCUMENTOIDENTIDAD = @DOCUMENTOIDENTIDAD
+            AND  ACTIVO = 1
+  GO        
+
+  -- Citas de un paciente: deben coincidir correo Y celular (así nadie ve citas ajenas solo con un correo)
+  CREATE PROC usp_Listar_Citas_Paciente
+  (
+          @EMAIL VARCHAR(128),
+          @TELEFONO VARCHAR(16)
+  )
+  AS
+          SELECT C.IDCITA,
+                 CONVERT(VARCHAR(10), C.FECHA, 23) AS FECHA,
+                 CONVERT(VARCHAR(5),  C.HORA, 108) AS HORA,
+                 O.NOMBRE AS ODONTOLOGO,
+                 T.NOMBRE AS TRATAMIENTO,
+                 C.PACIENTE, C.ESTADO
+          FROM   TM_CITA C
+          INNER JOIN TM_ODONTOLOGO  O ON O.IDODONTOLOGO  = C.IDODONTOLOGO
+          INNER JOIN TM_TRATAMIENTO T ON T.IDTRATAMIENTO = C.IDTRATAMIENTO
+          WHERE  C.EMAIL = @EMAIL
+            AND  C.TELEFONO = @TELEFONO
+          ORDER BY C.FECHA, C.HORA
+  GO
+  

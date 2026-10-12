@@ -1,0 +1,107 @@
+<section class="agendar">
+    <div class="container">
+      <div class="text-center mb-5">
+        <span class="etiqueta">
+          <i class="bi bi-calendar-check me-1"></i> Agenda online
+        </span>
+        <h1 class="titulo mt-3">Reserva tu cita en menos de un minuto</h1>
+        <p class="descripcion mx-auto">
+          Elige el tratamiento, tu especialista y un horario libre. Te confirmamos al instante.
+        </p>
+      </div>
+      
+      <div class="tarjeta-form mx-auto">
+        @if (citaConfirmada(); as cita) {
+          <!-- Confirmación -->
+          <div class="text-center py-3">
+            <span class="icono-ok mb-3"><i class="bi bi-check-lg"></i></span>
+            <h2 class="subtitulo">¡Cita confirmada!</h2>
+            <p class="mb-1">Código de cita: <strong>#{{ cita.idCita }}</strong></p>
+            <p>
+              {{ cita.paciente }}, te esperamos para <strong>{{ cita.tratamiento }}</strong>
+              con <strong>{{ cita.odontologo }}</strong> el <strong>{{ cita.fecha }}</strong>
+              a las <strong>{{ cita.hora }}</strong>.
+            </p>
+            <button class="btn btn-agendar rounded-pill mt-2" (click)="__nueva_cita()">
+              Agendar otra cita
+            </button>
+          </div>
+          } @else {
+          <!-- Formulario -->
+          <form [formGroup]="citaForm" (ngSubmit)="__submit()" novalidate>
+            <div class="row g-3">
+              <div class="col-12">
+                <label class="form-label">Tratamiento</label>
+                <select class="form-select" formControlName="idTratamiento" [class.is-invalid]="invalido('idTratamiento')">
+                  <option value="" disabled>Elige un tratamiento</option>
+                  @for (t of tratamientos(); track t.idTratamiento) {
+                    <option [value]="t.idTratamiento">{{ t.nombre }} · S/ {{ t.precioHoy }}</option>
+                  } 
+                </select>
+              </div>
+              
+              <div class="col-md-6">
+                <label class="form-label">Especialista</label>
+                <select class="form-select" formControlName="idOdontologo" (change)="__cargar_horarios()" [class.is-invalid]="invalido('idOdontologo')">
+                  <option value="" disabled>Elige un especialista</option>
+                  @for (o of odontologos(); track o.idOdontologo) {
+                    <option [value]="o.idOdontologo">{{ o.nombre }} · {{ o.especialidad }}</option>
+                  } 
+                </select>
+              </div>
+              
+              <div class="col-md-6">
+                <label class="form-label">Fecha</label>
+                <input type="date" class="form-control" formControlName="fecha" [min]="hoy" (change)="__cargar_horarios()" [class.is-invalid]="invalido('fecha')" />
+              </div>
+              
+              <div class="col-12">
+                <label class="form-label">Horarios disponibles</label>
+                @if (horarios().length > 0) {
+                  <div class="d-flex flex-wrap gap-2">
+                    @for (h of horarios(); track h) {
+                      <button type="button" class="btn btn-hora rounded-pill"
+                              [class.activo]="citaForm.value.hora === h"
+                              (click)="citaForm.patchValue({ hora: h })">
+                        {{ h }}
+                      </button>
+                    } 
+                  </div>
+                  } @else if (citaForm.value.idOdontologo && citaForm.value.fecha) {
+                  <p class="text-muted mb-0">No hay horarios libres ese día. Prueba otra fecha.</p>
+                } @else {
+                  <p class="text-muted mb-0">Elige un especialista y una fecha para ver las horas libres.</p>
+                } 
+                @if (invalido('hora')) {
+                  <div class="text-danger small mt-1">Elige un horario.</div>
+                } 
+              </div>
+              
+              <div class="col-12">
+                <label class="form-label">Nombre completo</label>
+                <input type="text" class="form-control" formControlName="paciente" [class.is-invalid]="invalido('paciente')" />
+              </div>
+              
+              <div class="col-md-6">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" formControlName="email" [class.is-invalid]="invalido('email')" />
+              </div>
+              
+              <div class="col-md-6">
+                <label class="form-label">Celular</label>
+                <input type="tel" class="form-control" formControlName="telefono" placeholder="9XXXXXXXX" [class.is-invalid]="invalido('telefono')" />
+              </div>
+            </div>
+            
+            @if (mensajeError()) {
+              <div class="alert alert-danger mt-3 mb-0">{{ mensajeError() }}</div>
+            } 
+            
+            <button type="submit" class="btn btn-agendar rounded-pill w-100 mt-4">
+              <i class="bi bi-calendar-check me-1"></i> Confirmar cita
+            </button>
+          </form>
+        } 
+      </div>
+    </div>
+  </section>

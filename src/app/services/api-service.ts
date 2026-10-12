@@ -23,7 +23,25 @@ import { HttpClient } from '@angular/common/http';
       return this.http.get(API + '/horarios?id_odontologo=' + idOdontologo + '&fecha=' + fecha, { responseType: 'json' });
     } 
   
+    listar_citas(idOdontologo: string, fecha: string) {
+        return this.http.get(API + '/citas?id_odontologo=' + idOdontologo + '&fecha=' + fecha, { responseType: 'json' });
+      }
+
     insertar_cita(data: any) {
       return this.http.post(API + '/citas', data, { responseType: 'json' });
     } 
+      
+    login(data: any) {
+      return this.http.post(API + '/login', data, { responseType: 'json' });
+    }
+      
+    listar_citas_paciente(data: any) {
+      return this.http.post(API + '/mis-citas', data, { responseType: 'json' });
+    }
+      
+    eliminar_cita(data: any) {
+      return this.http.post(API + '/eliminar-cita', data, { responseType: 'json' });
+    }
+
+    
   }

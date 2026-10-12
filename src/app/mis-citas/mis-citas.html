@@ -1,0 +1,53 @@
+<section class="acceso">
+    <div class="container">
+      <div class="tarjeta-form mx-auto">
+        <div class="text-center mb-4">
+          <span class="icono mb-2"><i class="bi bi-calendar2-week"></i></span>
+          <h1 class="subtitulo">Consulta tus citas</h1>
+          <p class="text-muted small mb-0">Usa el correo y el celular con los que reservaste.</p>
+        </div>
+        
+        <form [formGroup]="consultaForm" (ngSubmit)="__submit()" novalidate>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control" formControlName="email" />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Celular</label>
+              <input type="tel" class="form-control" formControlName="telefono" placeholder="9XXXXXXXX" />
+            </div>
+          </div>
+          
+          @if (mensajeError()) {
+            <div class="alert alert-danger py-2 mt-3 mb-0">{{ mensajeError() }}</div>
+          }
+          
+          <button type="submit" class="btn btn-agendar rounded-pill w-100 mt-3">
+            <i class="bi bi-search me-1"></i> Ver mis citas
+          </button>
+        </form>
+
+        @if (buscado()) {
+          <hr class="my-4" />
+          @for (c of citas(); track c.idCita) {
+            <div class="cita">
+              <div class="fecha">
+                <div class="dia">{{ c.fecha }}</div>
+                <div class="hora">{{ c.hora }}</div>
+              </div>
+              <div>
+                <div class="fw-semibold">{{ c.tratamiento }}</div>
+                <div class="small text-muted">{{ c.odontologo }} · Cita #{{ c.idCita }}</div>
+              </div>
+              <button class="btn btn-sm btn-outline-danger rounded-pill ms-auto" (click)="__eliminar(c)">
+                Eliminar y reagendar
+              </button>
+            </div>
+          } @empty {
+            <p class="text-center text-muted mb-0">No encontramos citas con esos datos.</p>
+          } 
+        } 
+      </div>
+    </div>
+  </section>

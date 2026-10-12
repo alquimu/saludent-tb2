@@ -1,0 +1,26 @@
+<section class="acceso">
+    <div class="tarjeta-form mx-auto">
+      <div class="text-center mb-4">
+        <span class="icono mb-2"><i class="bi bi-shield-lock"></i></span>
+        <h1 class="subtitulo">Acceso del personal</h1>
+        <p class="text-muted small mb-0">Panel de citas de Saludent</p>
+      </div>
+      
+      <form [formGroup]="loginForm" (ngSubmit)="__submit()" novalidate>
+        <div class="mb-3">
+          <label class="form-label">Usuario</label>
+          <input type="text" class="form-control" formControlName="usuario" autocomplete="username" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">DNI</label>
+          <input type="password" class="form-control" formControlName="dni" autocomplete="current-password" />
+        </div>
+        
+        @if (mensajeError()) {
+          <div class="alert alert-danger py-2">{{ mensajeError() }}</div>
+        } 
+      
+        <button type="submit" class="btn btn-agendar rounded-pill w-100">Ingresar</button>
+      </form>
+    </div>
+  </section>

@@ -1,17 +1,17 @@
 <section class="equipo">
-  <div class="container">
-    <div class="text-center mb-5">
-      <span class="etiqueta">
-        <i class="bi bi-people-fill me-1"></i> Equipo profesional
-      </span>
-      <h1 class="titulo mt-3">Especialistas con nombre, apellido y registro</h1>
-      <p class="descripcion mx-auto">
-        Todos nuestros odontólogos están habilitados por el Colegio Odontológico del Perú y se
-        capacitan cada año.
-      </p>
-    </div>
-
-    <div class="row g-4">
+    <div class="container">
+      <div class="text-center mb-5">
+        <span class="etiqueta">
+          <i class="bi bi-people-fill me-1"></i> Equipo profesional
+        </span>
+        <h1 class="titulo mt-3">Especialistas con nombre, apellido y registro</h1>
+        <p class="descripcion mx-auto">
+          Todos nuestros odontólogos están habilitados por el Colegio Odontológico del Perú y se
+          capacitan cada año.
+        </p>
+      </div>
+          
+      <div class="row g-4">
         @for (o of odontologos(); track o.idOdontologo) {
           <div class="col-12 col-sm-6 col-lg-3">
             <div class="tarjeta">
@@ -28,9 +28,7 @@
               </div>
             </div>
           </div>
-        }
+        }     
       </div>
-
     </div>
-  </div>
-</section>
+  </section>

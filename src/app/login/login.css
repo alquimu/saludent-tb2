@@ -1,0 +1,49 @@
+.acceso {
+    background: linear-gradient(180deg, #e9f6f8, #ffffff);
+    padding: 60px 16px 80px;
+    min-height: 80vh;
+  }
+
+  .tarjeta-form {
+    background: white;
+    max-width: 560px;
+    padding: 32px; 
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  }
+
+  .icono {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: #dff1f3;
+    color: #147e83;
+    font-size: 1.6rem;
+  }
+ 
+  .subtitulo {
+    color: #0f3440;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .form-label {
+    color: #0f3440;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+ 
+  .btn-agendar {
+    border: 1px solid #1a9aa0;
+    color: #147e83;
+    font-weight: 600;
+    padding: 10px 24px;
+  }
+
+  .btn-agendar:hover {
+    background-color: #1a9aa0;
+    color: white;
+  }

@@ -1,0 +1,38 @@
+.panel {
+    background: linear-gradient(180deg, #e9f6f8, #ffffff);
+    padding: 40px 0 80px;
+    min-height: 80vh;
+  }
+
+  .etiqueta {
+    background-color: #dff1f3;
+    color: #147e83;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 20px;
+  } 
+
+  .titulo {
+    color: #0f3440;
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  .form-label {
+    color: #0f3440;
+    font-weight: 600;
+    font-size: 0.9rem;
+  } 
+
+  .total {
+    color: #147e83;
+    font-weight: 600;
+  } 
+
+  .tabla-contenedor {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    background: white;
+  } 
